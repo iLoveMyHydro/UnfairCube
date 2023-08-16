@@ -7,6 +7,8 @@ public class OptionsMenu : MonoBehaviour
 {
     private bool vSyncOn = true;
 
+    private bool resetOn = true;
+
     private bool fullScreen = true;
 
     public void LoadMenu()
@@ -43,6 +45,18 @@ public class OptionsMenu : MonoBehaviour
         {
             Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
             fullScreen = true;
+        }
+    }
+
+    public void ResetTutorialLevel()
+    {
+        if (resetOn)
+        {
+            var didntPlayJumpTutorial = 0;
+
+            PlayerPrefs.SetInt("First Jump", didntPlayJumpTutorial);
+
+            PlayerPrefs.SetInt("Wall Jump", didntPlayJumpTutorial);
         }
     }
 

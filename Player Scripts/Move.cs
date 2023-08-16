@@ -32,5 +32,6 @@ public class Move : MonoBehaviour
             rigidbody.velocity = new Vector2(MoveSpeed, rigidbody.velocity.y);
         }
         else rigidbody.velocity = Vector2.zero;
+
     }
 }

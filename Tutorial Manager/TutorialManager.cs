@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Move))]
+[RequireComponent(typeof(Jump))]
 [RequireComponent(typeof(GameObject))]
 [RequireComponent(typeof(GameObject))]
 [RequireComponent(typeof(GameObject))]
@@ -26,12 +27,19 @@ public class TutorialManager : MonoBehaviour
     [Header("Movement speed")]
     [SerializeField] private Move move = null;
 
+    [Header("Jump")]
+    [SerializeField] private Jump jump = null;
+
+    private int wallJumpWrong = 0;
+
     [ContextMenu("Reset")]
     public void Reset()
     {
         var didntPlayJumpTutorial = 0;
 
         PlayerPrefs.SetInt("First Jump", didntPlayJumpTutorial);
+
+        PlayerPrefs.SetInt("Wall Jump", didntPlayJumpTutorial);
     }
 
     private void Awake()
@@ -75,6 +83,8 @@ public class TutorialManager : MonoBehaviour
                 move.MoveSpeed = zeroSpeed;
                 fallingGround.SetActive(true);
                 invisibleWall.SetActive(true);
+                jump.CanWallJump = false;
+                jump.CanWallSlide = false;
                 PlayerPrefs.SetInt("First Jump", playedJumpTutorial);
 
             }
@@ -101,12 +111,12 @@ public class TutorialManager : MonoBehaviour
             }
         }
 
-
-
         if (collision.CompareTag("Dont Show Text Double Jump"))
         {
             doubleJumpUI.SetActive(false);
             Wall.SetActive(true);
+            jump.CanWallJump = true;
+            jump.CanWallSlide = true;
         }
 
         if (collision.CompareTag("Show Text Wall Jump"))
@@ -114,13 +124,29 @@ public class TutorialManager : MonoBehaviour
             if (PlayerPrefs.GetInt("Wall Jump") == didntPlayJumpTutorial)
             {
                 wallJumpUI.SetActive(true);
-                PlayerPrefs.SetInt("Wall Jump", playedJumpTutorial);
             }
-            else
-            {
-                wallJumpUI.SetActive(false);
-            }
+            wallJumpWrong++;
 
+            if (wallJumpWrong > 1)
+            {
+                SceneManager.LoadScene("Tutorial Level");
+            }
+        }
+
+        if (collision.CompareTag("Dont Show Text Wall Jump"))
+        {
+            wallJumpUI.SetActive(false);
+        }
+
+        if (collision.CompareTag("Aim"))
+        {
+            PlayerPrefs.SetInt("Tutorial Level", 1);
+            SceneManager.LoadScene("LevelHub");
+        }
+
+        if (collision.CompareTag("Enemy"))
+        {
+            SceneManager.LoadScene("Tutorial Level");
         }
     }
 }

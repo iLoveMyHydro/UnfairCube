@@ -3,32 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RespawnPlayer
+public class RespawnPlayer : MonoBehaviour
 {
-    private int respawn = 1;
-
-    public bool triedToJump { get; set; } = false;
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Respawn"))
         {
-            SceneManager.LoadScene(respawn);
-            triedToJump = true;
+            SceneManager.LoadScene("Tutorial Level");
         }
     }
 }
