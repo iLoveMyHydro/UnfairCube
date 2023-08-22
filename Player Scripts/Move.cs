@@ -7,31 +7,51 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Move : MonoBehaviour
 {
-    [Header("Move")]
+    #region Parameter
 
+    #region Const
+
+    private const string MoveHeaderText = "Move";
+
+    #endregion
+
+    #region Move
+
+    [Header(MoveHeaderText)]
     [SerializeField] private new Rigidbody2D rigidbody;
     [field: SerializeField] public float MoveSpeed { get; set; } = 4.0f;
 
-    [SerializeField] private GameManager gm = null;
+    #endregion
+
+    #endregion
+
+
+    #region Awake
 
     void Awake()
     {
         if (rigidbody == null) rigidbody = GetComponent<Rigidbody2D>();
-
-        if (gm == null)
-        {
-            gm = GameManager.Instance;
-        }
     }
+
+    #endregion
+
+    #region FixedUpdate
 
     // Update is called once per frame
+    //If the player isnt paused the player will move constantly with the MoveSpeed
     void FixedUpdate()
     {
-        if (gm.IsPaused == false)
+        if (GameManager.Instance?.IsPaused == false)
         {
             rigidbody.velocity = new Vector2(MoveSpeed, rigidbody.velocity.y);
+            rigidbody.isKinematic = false;
         }
-        else rigidbody.velocity = Vector2.zero;
-
+        else
+        {
+            rigidbody.isKinematic = true;
+            rigidbody.velocity = Vector2.zero;
+        }
     }
+
+    #endregion
 }

@@ -2,38 +2,84 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
 {
-    private bool vSyncOn = true;
+    #region Parameter
+
+    #region Const 
+
+    private const string MainMenuSceneText = "Main Menu";
+
+    private const string OptionMenuSceneText = "Option Menu";
+
+    #endregion
+
+    #region Not Sortable
+
+    private bool vSync = true;
 
     private bool resetOn = true;
 
     private bool fullScreen = true;
 
+    #endregion
+
+    #endregion
+
+
+    #region Load Menu
+
+    /// <summary>
+    /// If you press the Main Menu Button the MainMenu Scene will be loaded
+    /// </summary>
     public void LoadMenu()
     {
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene(MainMenuSceneText);
     }
 
-    public void VSync()
+    #endregion
+
+    #region VSync
+
+    /// <summary>
+    /// If you set the toggle to on the VSync will be set on 
+    /// If you set the toggle to off the VSync will be set off
+    /// ONLY WORKS IN THE EXE !!!
+    /// NOT IN UNITY EDITOR/UNITY ENGINE
+    /// </summary>
+    /// <param name="vSync"></param>
+    public void VSync(bool vSync)
     {
-        var vSyncOffInt = -1;
+        #region Fields
 
-        var vSyncOnInt = 30;
+        var vSyncOn = 1;
 
-        if (vSyncOn)
+        var vSyncOff = 0;
+
+        #endregion
+
+        if (vSync)
         {
-            Application.targetFrameRate = vSyncOffInt;
-            vSyncOn = false;
+            QualitySettings.vSyncCount = vSyncOn;
+            this.vSync = false;
         }
         else
         {
-            Application.targetFrameRate = vSyncOnInt;
-            vSyncOn = true;
+            QualitySettings.vSyncCount = vSyncOff;
+            this.vSync = true;
         }
     }
 
+    #endregion
+
+    #region Fullscreen
+
+    /// <summary>
+    /// If the toggle is set on the Application will be set to fullscreen
+    /// If the toggle is set off the Application will be set to Windowed
+    /// </summary>
     public void Fullscreen()
     {
         if (fullScreen)
@@ -48,20 +94,42 @@ public class OptionsMenu : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Reset Tutorial 
+
+    /// <summary>
+    /// If you press the Reset Tutorial Level Button the prefs for the tutorial Level will be reseted
+    /// </summary>
     public void ResetTutorialLevel()
     {
+        #region Fields
+
+        var didntPlayJumpTutorial = 0;
+
+        #endregion
+
         if (resetOn)
         {
-            var didntPlayJumpTutorial = 0;
-
             PlayerPrefs.SetInt("First Jump", didntPlayJumpTutorial);
 
             PlayerPrefs.SetInt("Wall Jump", didntPlayJumpTutorial);
         }
     }
 
+    #endregion
+
+    #region DarkMode
+
+    /// <summary>
+    /// If the DarkMode Toggle is on - Everything is in darkmode
+    /// If the Toggle is off - Everything will be displayed in the white Mode
+    /// Only works if the White Mode is seen as important and will be integrated
+    /// </summary>
     public void DarkMode()
     {
-        SceneManager.LoadScene("OptionMenu");
+        SceneManager.LoadScene(OptionMenuSceneText);
     }
+
+    #endregion
 }
