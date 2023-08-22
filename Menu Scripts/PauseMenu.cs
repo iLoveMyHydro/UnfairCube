@@ -8,6 +8,12 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(InputActionProperty))]
 public class PauseMenu : MonoBehaviour
 {
+    //Das Pause Menu wurde mit folgenden Quellen teilweise erstellt:
+    //https://youtu.be/G1AQxNAQV8g
+    //Marcus Hilfe
+    //Stephan Hilfe
+    //https://youtu.be/JivuXdrIHK0
+
     #region Parameter
 
     #region Const

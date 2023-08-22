@@ -39,8 +39,12 @@ public class FirstLevelManager : MonoBehaviour
 
     [Header(TrickingStuffHeaderText)]
     [SerializeField] private int checkPointChecker = 0;
+
     [SerializeField] private GameObject secretWall;
     [SerializeField] private GameObject secretWallVisible;
+
+    [SerializeField] private GameObject visibleWallDown;
+    [SerializeField] private GameObject visibleWallUp;
 
     #endregion
 
@@ -205,8 +209,6 @@ public class FirstLevelManager : MonoBehaviour
 
             if (checkPointChecker == firstCheckpoint)
             {
-                PlayerPrefs.SetInt(TutorialLevelSceneText, 1);
-
                 SceneManager.LoadScene("LevelHub");
             }
         }
@@ -225,6 +227,9 @@ public class FirstLevelManager : MonoBehaviour
         {
             secretWall.SetActive(false);
             secretWallVisible.SetActive(true);
+
+            visibleWallDown.SetActive(true);
+            visibleWallUp.SetActive(true);
         }
 
         #endregion

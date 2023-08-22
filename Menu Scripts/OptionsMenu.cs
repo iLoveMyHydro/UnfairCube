@@ -6,13 +6,14 @@ using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
 {
+    //Das Option Menu wurde mit folgenden Quellen erstellt: 
+    //https://youtu.be/YOaYQrN1oYQ
+
     #region Parameter
 
     #region Const 
 
     private const string MainMenuSceneText = "Main Menu";
-
-    private const string OptionMenuSceneText = "Option Menu";
 
     #endregion
 
@@ -115,20 +116,6 @@ public class OptionsMenu : MonoBehaviour
 
             PlayerPrefs.SetInt("Wall Jump", didntPlayJumpTutorial);
         }
-    }
-
-    #endregion
-
-    #region DarkMode
-
-    /// <summary>
-    /// If the DarkMode Toggle is on - Everything is in darkmode
-    /// If the Toggle is off - Everything will be displayed in the white Mode
-    /// Only works if the White Mode is seen as important and will be integrated
-    /// </summary>
-    public void DarkMode()
-    {
-        SceneManager.LoadScene(OptionMenuSceneText);
     }
 
     #endregion

@@ -5,6 +5,9 @@ using UnityEngine.Rendering;
 
 public class CoinCollecter : MonoBehaviour
 {
+    //Coin System wurde zu teilen aus der 3D Steuerung sowie aus folgendem Video erstellt:
+    //https://youtu.be/Dwkzdimdk9I
+
     #region Parameter
 
     #region Const

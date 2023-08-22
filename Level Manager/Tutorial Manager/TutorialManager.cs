@@ -272,7 +272,7 @@ public class TutorialManager : MonoBehaviour
         //levelhub
         if (collision.CompareTag(AimTagText))
         {
-            PlayerPrefs.SetInt(TutorialLevelSceneText, 1);
+            PlayerPrefs.SetInt(TutorialLevelSceneText, playedJumpTutorial);
 
             SceneManager.LoadScene(LevelHubSceneText);
         }

@@ -13,6 +13,10 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Move))]
 public class Jump : MonoBehaviour
 {
+    //Die Jump Ability wurde von der 2D Steuerung übertragen - Jedoch in einigen Teilen an das Spiel angepasst
+    //Des weiteren wurde sie um die Jump Buffer Time erweitert
+    //Die Wall Jump Ability wurde ebenfalls aus der 2D Steuerung übertragen - Diese musste ebenfalls angepasst werden
+
     #region Parameter
 
     #region Const
@@ -34,6 +38,8 @@ public class Jump : MonoBehaviour
     private const string WallJumpingHeaderText = "Wall Jumping";
 
     private const string MoveHeaderText = "Move";
+
+    private const string JumpAudioText = "Jump";
 
     #endregion
 
@@ -98,7 +104,7 @@ public class Jump : MonoBehaviour
     #region Wall Sliding
 
     [Header(WallSlidingHeaderText)]
-    [SerializeField] private float wallSlidingSpeed = 1.5f;
+    [SerializeField] private float wallSlidingSpeed = 2.5f;
     [field: SerializeField] public bool CanWallSlide { get; set; } = true;
     private bool isWallSliding = true;
 
@@ -141,7 +147,7 @@ public class Jump : MonoBehaviour
     #endregion
 
     #region Start
-    
+
     /// <summary>
     /// Sets how many often the player can jump (max double jump in this game) 
     /// </summary>
@@ -356,12 +362,14 @@ public class Jump : MonoBehaviour
                 if (IsGrounded())
                 {
                     rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpPower);
+                    FindObjectOfType<AudioManager>().Play(JumpAudioText);
                 }
                 else
                 { //if he isnt grounded but got the coyote time or the jumpbuffer time then he still can jump
                     if (CoyoteTime() > zeroJump && JumpBuffer() > zeroJump)
                     {
                         rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpPower);
+                        FindObjectOfType<AudioManager>().Play(JumpAudioText);
                         jumpsLeft--;
                     }
                     else
@@ -369,6 +377,7 @@ public class Jump : MonoBehaviour
                         if (jumpsLeft > zeroJump)
                         {
                             rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpPower);
+                            FindObjectOfType<AudioManager>().Play(JumpAudioText);
                             jumpsLeft--;
                         }
                     }
@@ -378,6 +387,7 @@ public class Jump : MonoBehaviour
         if (context.canceled && rigidbody.velocity.y > zeroJump && canJump)
         {
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, rigidbody.velocity.y * longerJump);
+            FindObjectOfType<AudioManager>().Play(JumpAudioText);
         }
     }
 
@@ -483,7 +493,7 @@ public class Jump : MonoBehaviour
     #endregion
 
     #region WallJump
-    
+
     /// <summary>
     /// if the player can wall jump, got the walljump counter and iswalled then he is able to jump off a wall
     /// </summary>

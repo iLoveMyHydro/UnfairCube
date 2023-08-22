@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    //Das Main Menu wurde durch folgende Quellen erstellt: 
+    //https://youtu.be/zc8ac_qUXQY
+    //https://youtu.be/IuuKUaZQiSU
+
     #region Parameter
 
     #region Const
-
-    private const string TutorialLevelPrefText = "Tutorial Level";
-
-    private const string DarkModePrefText = "DarkMode";
 
     private const string LevelHubSceneText = "LevelHub";
 
@@ -31,18 +31,8 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        #region Fields 
-
-        var tutorialNotPlayed = 0;
-
-        var darkModeOn = 1;
-
-        #endregion
-
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        PlayerPrefs.SetInt(TutorialLevelPrefText, tutorialNotPlayed);
-        PlayerPrefs.SetInt(DarkModePrefText, darkModeOn);
     }
 
     #endregion
